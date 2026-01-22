@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #647dee, #7f53ac);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dark .glassmorphism {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        /* Dark Mode Toggle Styles */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding:1rem;
+        }
+
+        .toggle-label {
+            margin-left: 10px;
+            color: white;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #647dee;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #647dee;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+
+    </style>
+</head>
+<body class="dark:bg-gray-900 dark:text-white">
+    <div class="container mx-auto p-8">
+      <div class="toggle-container">
+            <label class="toggle-switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider"></span>
+            </label>
+            <span class="toggle-label">Dark Mode</span>
+        </div>
+
+        <div class="glassmorphism max-w-md mx-auto p-6 rounded-lg shadow-lg">
+            <h1 class="text-2xl font-semibold mb-6 text-center">Calorie Calculator</h1>
+
+            <div class="mb-4">
+                <label for="weight" class="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2 flex items-center"><i data-lucide="weight" class="mr-2"></i>Weight (kg):</label>
+                <input type="number" id="weight" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Enter your weight">
+            </div>
+
+            <div class="mb-4">
+                <label for="height" class="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2 flex items-center"><i data-lucide="ruler" class="mr-2"></i>Height (cm):</label>
+                <input type="number" id="height" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Enter your height">
+            </div>
+
+            <div class="mb-6">
+                <label for="age" class="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2 flex items-center"><i data-lucide="user" class="mr-2"></i>Age:</label>
+                <input type="number" id="age" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Enter your age">
+            </div>
+
+            <button id="calculate" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300">Calculate</button>
+
+            <div id="result" class="mt-6 p-4 glassmorphism text-center text-lg font-semibold hidden">Result</div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        document.getElementById('calculate').addEventListener('click', function() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const age = parseFloat(document.getElementById('age').value);
+
+            if (isNaN(weight) || isNaN(height) || isNaN(age)) {
+                alert('Please enter valid numbers for weight, height, and age.');
+                return;
+            }
+
+            // This is a placeholder formula.  Use a real calorie calculation formula here.
+            const calorieResult = (10 * weight) + (6.25 * height) - (5 * age) + 5;  // Mifflin-St Jeor Equation (Men)
+
+            document.getElementById('result').innerText = `Estimated Daily Calories: ${calorieResult.toFixed(2)}`;
+            document.getElementById('result').classList.remove('hidden');
+        });
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('change', () => {
+            body.classList.toggle('dark');
+        });
+
+        // Check system preference on load
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            body.classList.add('dark');
+            darkModeToggle.checked = true;
+        }
+    </script>
+</body>
+</html>
