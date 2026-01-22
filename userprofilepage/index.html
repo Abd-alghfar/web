@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملف الشخصي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            transition: background-color 0.5s, color 0.5s;
+        }
+        .dark {
+            background-color: #1a1a1a;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white">
+    <div class="container mx-auto max-w-2xl p-5 ">
+        <h1 class="text-3xl font-bold mb-5 text-center">الملف الشخصي</h1>
+        <div class="flex items-center justify-between mb-5">
+            <button id="themeToggle" class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-200">
+                <i class="fas fa-adjust"></i> تغيير الوضع
+            </button>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg transition duration-300">
+            <h2 class="text-2xl font-semibold mb-3">بيانات المستخدم</h2>
+            <div class="mb-2">
+                <span class="font-medium">الاسم:</span> أحمد محمد
+            </div>
+            <div class="mb-2">
+                <span class="font-medium">البريد الإلكتروني:</span> ahmed@example.com
+            </div>
+            <div class="mb-2">
+                <span class="font-medium">رقم الهاتف:</span> +965 1234 5678
+            </div>
+            <h2 class="text-2xl font-semibold mt-5 mb-3">إحصائيات النشاط</h2>
+            <div>
+                <div class="mb-2">
+                    <span class="font-medium">عدد الزيارات:</span> 1200
+                </div>
+                <div class="mb-2">
+                    <span class="font-medium">الوقت المستغرق:</span> 15 ساعة
+                </div>
+                <div class="mb-2">
+                    <span class="font-medium">المهام المنجزة:</span> 45
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+        });
+    </script>
+</body>
+</html>
