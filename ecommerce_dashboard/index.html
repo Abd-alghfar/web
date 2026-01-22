@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/lucide-icons@latest/dist/lucide.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #fff;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: 10;
+        }
+
+        .sidebar-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .sidebar-item:hover {
+            background-color: #f9fafb;
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+       /* Dark Mode Styling */
+       body.dark {
+            background-color: #1a202c;
+        }
+
+        body.dark .sidebar {
+            background-color: #2d3748;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            color: #cbd5e0;
+        }
+
+        body.dark .sidebar-item:hover {
+            background-color: #4a5568;
+        }
+
+        body.dark .card {
+            background-color: #2d3748;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            color: #cbd5e0;
+        }
+
+        body.dark .glassmorphism {
+            background: rgba(45, 55, 72, 0.6);
+            border: 1px solid rgba(74, 85, 104, 0.3);
+            color: #cbd5e0;
+        }
+
+        body.dark table {
+            color: #cbd5e0;
+        }
+
+        body.dark thead {
+             color: #e2e8f0;
+        }
+
+        body.dark tbody tr:nth-child(even) {
+            background-color: rgba(74, 85, 104, 0.2);
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                margin-bottom: 20px;
+                box-shadow: none;
+            }
+        }
+
+
+    </style>
+</head>
+<body class="">
+
+    <div class="flex flex-col md:flex-row">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <div class="p-4 font-bold text-lg">E-commerce Admin</div>
+            <div class="sidebar-item"><i data-lucide="home" class="mr-2"></i>Dashboard</div>
+            <div class="sidebar-item"><i data-lucide="orders" class="mr-2"></i>Orders</div>
+            <div class="sidebar-item"><i data-lucide="products" class="mr-2"></i>Products</div>
+            <div class="sidebar-item"><i data-lucide="users" class="mr-2"></i>Customers</div>
+            <div class="sidebar-item"><i data-lucide="settings" class="mr-2"></i>Settings</div>
+            <div class="sidebar-item" id="darkModeToggle"><i data-lucide="moon" class="mr-2"></i>Dark Mode</div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-4 md:ml-64">
+            <!-- Statistics Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div class="card p-4 rounded-md glassmorphism">
+                    <div class="font-bold text-lg">Sales</div>
+                    <div class="text-2xl font-semibold">$25,000</div>
+                    <div class="text-gray-500">+10% from last month</div>
+                </div>
+                <div class="card p-4 rounded-md glassmorphism">
+                    <div class="font-bold text-lg">Visitors</div>
+                    <div class="text-2xl font-semibold">12,000</div>
+                    <div class="text-gray-500">+5% from last month</div>
+                </div>
+                <div class="card p-4 rounded-md glassmorphism">
+                    <div class="font-bold text-lg">New Orders</div>
+                    <div class="text-2xl font-semibold">150</div>
+                    <div class="text-gray-500">+20% from last month</div>
+                </div>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="card rounded-md overflow-x-auto">
+                <table class="min-w-full">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="p-4 text-left">Order ID</th>
+                            <th class="p-4 text-left">Customer</th>
+                            <th class="p-4 text-left">Date</th>
+                            <th class="p-4 text-left">Amount</th>
+                            <th class="p-4 text-left">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="p-4">#1234</td>
+                            <td class="p-4">John Doe</td>
+                            <td class="p-4">2024-01-15</td>
+                            <td class="p-4">$150</td>
+                            <td class="p-4">Shipped</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4">#1235</td>
+                            <td class="p-4">Jane Smith</td>
+                            <td class="p-4">2024-01-16</td>
+                            <td class="p-4">$200</td>
+                            <td class="p-4">Pending</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4">#1236</td>
+                            <td class="p-4">Mike Johnson</td>
+                            <td class="p-4">2024-01-17</td>
+                            <td class="p-4">$75</td>
+                            <td class="p-4">Delivered</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4">#1237</td>
+                            <td class="p-4">Emily Brown</td>
+                            <td class="p-4">2024-01-18</td>
+                            <td class="p-4">$300</td>
+                            <td class="p-4">Processing</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4">#1238</td>
+                            <td class="p-4">David Lee</td>
+                            <td class="p-4">2024-01-19</td>
+                            <td class="p-4">$100</td>
+                            <td class="p-4">Shipped</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide-icons@latest/dist/lucide.js"></script>
+    <script>
+        lucide.createIcons();
+
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            // Toggle icon based on dark mode state
+             if (body.classList.contains('dark')) {
+                darkModeToggle.innerHTML = '<i data-lucide="sun" class="mr-2"></i>Light Mode';
+                lucide.createIcons(); // Re-render icons
+
+            } else {
+                darkModeToggle.innerHTML = '<i data-lucide="moon" class="mr-2"></i>Dark Mode';
+                 lucide.createIcons(); // Re-render icons
+            }
+        });
+
+        // Check system preference on load
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            body.classList.add('dark');
+            darkModeToggle.innerHTML = '<i data-lucide="sun" class="mr-2"></i>Light Mode';
+             lucide.createIcons(); // Re-render icons
+        }
+
+
+         const sidebar = document.getElementById('sidebar');
+
+        function toggleSidebar() {
+            if (window.innerWidth <= 768) {
+                sidebar.style.left = sidebar.style.left === '0px' ? '-250px' : '0px';
+            }
+        }
+
+
+        // Example: Close sidebar when clicking outside (optional)
+        document.addEventListener('click', (event) => {
+            if (window.innerWidth <= 768 && !sidebar.contains(event.target) && event.target !== document.querySelector('.menu-toggle-button')) {
+                sidebar.style.left = '-250px';
+            }
+        });
+    </script>
+</body>
+</html>
